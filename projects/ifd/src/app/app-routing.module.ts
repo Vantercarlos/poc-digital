@@ -1,0 +1,34 @@
+import { AppComponent } from 'projects/ifd/src/app/app.component';
+import { AboutPage } from 'projects/ifd/src/app/pages/about/about.page';
+import { HomePage } from 'projects/ifd/src/app/pages/home/home.page';
+import { IfdAuthGuard } from 'src/app/guards/ifd-auth.guard';
+
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { MsalGuard } from '@azure/msal-angular';
+
+const routes: Routes = [
+  {
+    path: 'ifd/app',
+    component: AppComponent, canActivate: [MsalGuard],
+    children: [
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      {
+        path: 'home',
+        component: HomePage,
+        canActivate: [MsalGuard]
+      },
+      {
+        path: 'about',
+        component: AboutPage,
+        canActivate: [MsalGuard],
+      },
+    ],
+  },
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
+})
+export class AppRoutingModule {}
