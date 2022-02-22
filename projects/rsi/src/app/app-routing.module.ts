@@ -5,24 +5,17 @@ import { RsiAuthGuard } from 'src/app/guards/rsi-auth.guard';
 
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MsalGuard } from '@azure/msal-angular';
 
 const routes: Routes = [
   {
-    path: 'rsi/app',
-    component: AppComponent,
-    canActivate: [MsalGuard],
+    path: 'rsi/app', component: AppComponent, canActivate: [RsiAuthGuard],
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       {
-        path: 'home',
-        component: HomePage,
-        canActivate: [MsalGuard],
+        path: 'home', component: HomePage
       },
       {
-        path: 'about',
-        component: AboutPage,
-        canActivate: [MsalGuard],
+        path: 'about', component: AboutPage
       },
     ],
   },

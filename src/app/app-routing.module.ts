@@ -6,6 +6,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { MsalGuard } from '@azure/msal-angular';
+import { IfdAuthGuard } from './guards/ifd-auth.guard';
+import { RsiAuthGuard } from './guards/rsi-auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomePage, canActivate: [MsalGuard] },
@@ -14,14 +16,12 @@ const routes: Routes = [
   {
     path: 'rsi',
     loadChildren: () =>
-      import('projects/rsi/src/app/app.module').then((m) => m.AppRsiSharedModule), canActivate: [MsalGuard],
-      data: {groups: ['c7865db8-b3dc-4bc2-85c6-d7b9926cd36e','6257620f-27d6-4aeb-81bb-223e995020f4']}
+      import('projects/rsi/src/app/app.module').then((m) => m.AppRsiSharedModule), canActivate: [RsiAuthGuard]
   },
   {
     path: 'ifd',
     loadChildren: () =>
-      import('projects/ifd/src/app/app.module').then((m) => m.AppIfdSharedModule), canActivate: [MsalGuard],
-      data: {groups: ['6257620f-27d6-4aeb-81bb-223e995020f4','c7865db8-b3dc-4bc2-85c6-d7b9926cd36e']}
+      import('projects/ifd/src/app/app.module').then((m) => m.AppIfdSharedModule), canActivate: [IfdAuthGuard]
   },
 ];
 
