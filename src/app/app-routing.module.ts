@@ -1,4 +1,3 @@
-import { NotLoggedGuard } from 'src/app/guards/not-logged.guard';
 import { HomePage } from 'src/app/pages/home/home.page';
 import { SignInPage } from 'src/app/pages/sign-in/sign-in.page';
 
@@ -11,7 +10,7 @@ import { RsiAuthGuard } from './guards/rsi-auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomePage, canActivate: [MsalGuard] },
-  { path: 'sign-in', component: SignInPage, canActivate: [NotLoggedGuard] },
+  { path: 'sign-in', component: SignInPage, canActivate: [MsalGuard] },
 
   {
     path: 'rsi',

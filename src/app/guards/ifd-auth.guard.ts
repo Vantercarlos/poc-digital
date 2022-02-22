@@ -1,9 +1,6 @@
-import { AuthService } from 'src/app/services/auth.service';
-
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { MsalBroadcastService, MsalService } from '@azure/msal-angular';
-import { JwtHelperService } from '@auth0/angular-jwt';
+import { MsalService } from '@azure/msal-angular';
 
 @Injectable({
   providedIn: 'root',
@@ -11,15 +8,15 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class IfdAuthGuard implements CanActivate {
 
   loginDisplay = false;
-  jwtPayload: any;
 
   constructor(
     private authService: MsalService,
-    private jwtHelper: JwtHelperService,
     private router: Router) {}
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     console.log('IfdAuthGuard#canActivate called');
+    this.loginDisplay = this.authService.instance.getActiveAccount()?.idTokenClaims as any;
+    console.log(this.loginDisplay);
     return true;
   }
 
